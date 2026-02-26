@@ -11,8 +11,31 @@ const isVercel = process.env.VERCEL === "1";
 async function getDb(): Promise<SqlJsDatabase> {
   if (db) return db;
 
-  const wasmPath = path.join(process.cwd(), "node_modules", "sql.js", "dist", "sql-wasm.wasm");
-  const wasmBinary = fs.readFileSync(wasmPath);
+  // Try multiple locations for the WASM binary
+  let wasmBinary: Buffer | undefined;
+  const possiblePaths = [
+    path.join(process.cwd(), "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
+    path.join(__dirname, "..", "node_modules", "sql.js", "dist", "sql-wasm.wasm"),
+    path.join(process.cwd(), "sql-wasm.wasm"),
+  ];
+
+  for (const p of possiblePaths) {
+    try {
+      if (fs.existsSync(p)) {
+        wasmBinary = fs.readFileSync(p);
+        break;
+      }
+    } catch {
+      // try next path
+    }
+  }
+
+  // If no local file found (e.g. Vercel), fetch from CDN
+  if (!wasmBinary) {
+    const response = await fetch("https://sql.js.org/dist/sql-wasm.wasm");
+    const arrayBuffer = await response.arrayBuffer();
+    wasmBinary = Buffer.from(arrayBuffer);
+  }
 
   SQL = await initSqlJs({ wasmBinary });
 
