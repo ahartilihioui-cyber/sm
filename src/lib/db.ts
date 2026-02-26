@@ -11,7 +11,10 @@ const isVercel = process.env.VERCEL === "1";
 async function getDb(): Promise<SqlJsDatabase> {
   if (db) return db;
 
-  SQL = await initSqlJs();
+  const wasmPath = path.join(process.cwd(), "node_modules", "sql.js", "dist", "sql-wasm.wasm");
+  const wasmBinary = fs.readFileSync(wasmPath);
+
+  SQL = await initSqlJs({ wasmBinary });
 
   // In local dev, persist to file; on Vercel, use in-memory
   if (!isVercel && fs.existsSync(DB_PATH)) {
