@@ -13,18 +13,18 @@ function LoginForm() {
   const searchParams = useSearchParams();
   const { status } = useSession();
 
-  // Redirect authenticated users to dashboard
+  // Redirect authenticated users to dashboard using hard navigation
   useEffect(() => {
     if (status === "authenticated") {
       const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
-      router.replace(callbackUrl);
+      window.location.href = callbackUrl;
     }
-  }, [status, router, searchParams]);
+  }, [status, searchParams]);
 
   if (status === "loading" || status === "authenticated") {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-        <div className="text-lg text-gray-600">Chargement...</div>
+        <div className="animate-pulse text-lg text-gray-600">Redirection...</div>
       </div>
     );
   }

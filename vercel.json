@@ -1,8 +1,5 @@
 {
   "buildCommand": "npm run build",
   "installCommand": "npm install",
-  "framework": "nextjs",
-  "env": {
-    "NEXTAUTH_SECRET": "student-manager-secret-key-2026"
-  }
+  "framework": "nextjs"
 }
