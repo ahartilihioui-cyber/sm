@@ -23,8 +23,8 @@ function LoginForm() {
 
   if (status === "loading" || status === "authenticated") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-        <div className="animate-pulse text-lg text-gray-600">Redirection...</div>
+      <div className="min-h-screen flex items-center justify-center bg-black">
+        <div className="animate-pulse text-lg text-gray-400">🚗 Redirection...</div>
       </div>
     );
   }
@@ -55,26 +55,34 @@ function LoginForm() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 px-4">
-      <div className="max-w-md w-full">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-950 via-black to-gray-900 px-4 relative overflow-hidden">
+      {/* Background car decorations */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute top-20 left-10 text-8xl animate-pulse">🚗</div>
+        <div className="absolute top-40 right-20 text-6xl animate-bounce" style={{ animationDuration: '3s' }}>🏎️</div>
+        <div className="absolute bottom-20 left-1/4 text-7xl animate-pulse" style={{ animationDuration: '4s' }}>🚙</div>
+        <div className="absolute bottom-40 right-10 text-5xl animate-bounce" style={{ animationDuration: '5s' }}>🏁</div>
+      </div>
+
+      <div className="max-w-md w-full relative z-10">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">🏫</h1>
-          <h2 className="text-2xl font-bold text-gray-900">Student Manager</h2>
-          <p className="text-gray-600 mt-1">
-            Connectez-vous pour gérer les étudiants
+          <h1 className="text-6xl mb-4">🏎️</h1>
+          <h2 className="text-2xl font-bold text-white">Car Manager</h2>
+          <p className="text-gray-400 mt-1">
+            Connectez-vous pour gérer les voitures
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl p-8">
+        <div className="bg-gray-900 rounded-2xl border border-gray-800 shadow-2xl shadow-black/50 p-8">
           {error && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+            <div className="mb-4 p-3 bg-red-900/50 border border-red-800 rounded-lg text-red-400 text-sm">
               {error}
             </div>
           )}
 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Email
               </label>
               <input
@@ -82,13 +90,13 @@ function LoginForm() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900"
+                className="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition text-white placeholder-gray-500"
                 placeholder="admin@school.com"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-300 mb-1">
                 Mot de passe
               </label>
               <input
@@ -96,7 +104,7 @@ function LoginForm() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-900"
+                className="w-full px-4 py-2.5 bg-gray-800 border border-gray-700 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition text-white placeholder-gray-500"
                 placeholder="••••••••"
               />
             </div>
@@ -104,19 +112,19 @@ function LoginForm() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-2.5 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 transition disabled:opacity-50"
+              className="w-full py-2.5 bg-orange-600 text-white font-medium rounded-lg hover:bg-orange-700 focus:ring-4 focus:ring-orange-500/30 transition disabled:opacity-50"
             >
-              {isLoading ? "Connexion..." : "Se connecter"}
+              {isLoading ? "🚗 Connexion..." : "Se connecter"}
             </button>
           </form>
 
-          <div className="mt-6 p-3 bg-gray-50 rounded-lg text-sm text-gray-600">
-            <p className="font-medium mb-1">Identifiants par défaut :</p>
+          <div className="mt-6 p-3 bg-gray-800/50 border border-gray-700 rounded-lg text-sm text-gray-400">
+            <p className="font-medium mb-1 text-gray-300">Identifiants par défaut :</p>
             <p>
-              Email : <code className="text-blue-600">admin@school.com</code>
+              Email : <code className="text-orange-400">admin@school.com</code>
             </p>
             <p>
-              Mot de passe : <code className="text-blue-600">admin123</code>
+              Mot de passe : <code className="text-orange-400">admin123</code>
             </p>
           </div>
         </div>
@@ -129,8 +137,8 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-          <div className="text-lg text-gray-600">Chargement...</div>
+        <div className="min-h-screen flex items-center justify-center bg-black">
+          <div className="text-lg text-gray-400">🚗 Chargement...</div>
         </div>
       }
     >

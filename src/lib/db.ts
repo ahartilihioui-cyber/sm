@@ -94,6 +94,27 @@ function initializeDatabase(database: SqlJsDatabase) {
     );
   `);
 
+  database.run(`
+    CREATE TABLE IF NOT EXISTS cars (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      brand TEXT NOT NULL,
+      model TEXT NOT NULL,
+      year INTEGER NOT NULL,
+      color TEXT,
+      license_plate TEXT UNIQUE,
+      mileage INTEGER DEFAULT 0,
+      fuel_type TEXT DEFAULT 'essence',
+      transmission TEXT DEFAULT 'manuelle',
+      price REAL,
+      doors INTEGER DEFAULT 4,
+      horsepower INTEGER,
+      description TEXT,
+      status TEXT DEFAULT 'disponible',
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    );
+  `);
+
   // Seed default admin user if none exists (password: admin123)
   const result = database.exec("SELECT COUNT(*) as count FROM users");
   const userCount = result[0]?.values[0]?.[0] as number;

@@ -12,20 +12,20 @@ export default function Navbar() {
 
   const links = [
     { href: "/dashboard", label: "Tableau de bord", icon: "📊" },
-    { href: "/students", label: "Étudiants", icon: "🎓" },
-    { href: "/students/new", label: "Ajouter", icon: "➕" },
+    { href: "/cars", label: "Voitures", icon: "🚗" },
+    { href: "/cars/new", label: "Ajouter", icon: "➕" },
   ];
 
   return (
-    <nav className="bg-white shadow-md border-b border-gray-200">
+    <nav className="bg-gray-950 border-b border-gray-800 shadow-lg shadow-black/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link
               href="/dashboard"
-              className="text-xl font-bold text-blue-600 mr-8"
+              className="text-xl font-bold text-orange-500 mr-8"
             >
-              🏫 Student Manager
+              🏎️ Car Manager
             </Link>
             <div className="hidden md:flex space-x-1">
               {links.map((link) => (
@@ -33,9 +33,9 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    pathname === link.href
-                      ? "bg-blue-100 text-blue-700"
-                      : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                    pathname === link.href || (link.href !== "/dashboard" && pathname.startsWith(link.href) && link.href !== "/cars/new")
+                      ? "bg-orange-600/20 text-orange-400 border border-orange-600/30"
+                      : "text-gray-400 hover:bg-gray-800 hover:text-white"
                   }`}
                 >
                   <span className="mr-1">{link.icon}</span>
@@ -45,12 +45,12 @@ export default function Navbar() {
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <span className="text-sm text-gray-600">
+            <span className="text-sm text-gray-400">
               {session.user?.name || session.user?.email}
             </span>
             <button
               onClick={() => signOut({ callbackUrl: "/login" })}
-              className="px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+              className="px-4 py-2 text-sm font-medium text-red-400 hover:bg-red-900/30 rounded-lg transition-colors"
             >
               Déconnexion
             </button>
@@ -65,8 +65,8 @@ export default function Navbar() {
             href={link.href}
             className={`px-3 py-1.5 rounded text-xs font-medium ${
               pathname === link.href
-                ? "bg-blue-100 text-blue-700"
-                : "text-gray-600 hover:bg-gray-100"
+                ? "bg-orange-600/20 text-orange-400"
+                : "text-gray-400 hover:bg-gray-800"
             }`}
           >
             {link.icon} {link.label}

@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Student Manager - Gestion des Étudiants",
-  description: "Application de gestion des étudiants",
+  title: "Car Manager - Gestion des Voitures",
+  description: "Application de gestion des voitures",
 };
 
 export default function RootLayout({
@@ -27,11 +27,19 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-black min-h-screen text-white`}
       >
         <AuthProvider>
-          <Navbar />
-          <main>{children}</main>
+          {/* Floating car background decorations */}
+          <div className="car-bg-icon car-bg-1">🚗</div>
+          <div className="car-bg-icon car-bg-2">🏎️</div>
+          <div className="car-bg-icon car-bg-3">🚙</div>
+          <div className="car-bg-icon car-bg-4">🚕</div>
+          <div className="car-bg-icon car-bg-5">🏁</div>
+          <div className="relative z-10">
+            <Navbar />
+            <main>{children}</main>
+          </div>
         </AuthProvider>
       </body>
     </html>

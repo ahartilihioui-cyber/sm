@@ -12,31 +12,33 @@ export async function GET() {
   try {
     await getDb();
 
-    const totalStudents = dbGet("SELECT COUNT(*) as count FROM students") as { count: number };
-    const activeStudents = dbGet("SELECT COUNT(*) as count FROM students WHERE status = 'active'") as { count: number };
-    const inactiveStudents = dbGet("SELECT COUNT(*) as count FROM students WHERE status = 'inactive'") as { count: number };
-    const graduatedStudents = dbGet("SELECT COUNT(*) as count FROM students WHERE status = 'graduated'") as { count: number };
+    const totalCars = dbGet("SELECT COUNT(*) as count FROM cars") as { count: number };
+    const disponibleCars = dbGet("SELECT COUNT(*) as count FROM cars WHERE status = 'disponible'") as { count: number };
+    const venduCars = dbGet("SELECT COUNT(*) as count FROM cars WHERE status = 'vendu'") as { count: number };
+    const maintenanceCars = dbGet("SELECT COUNT(*) as count FROM cars WHERE status = 'maintenance'") as { count: number };
+    const reserveCars = dbGet("SELECT COUNT(*) as count FROM cars WHERE status = 'reserve'") as { count: number };
 
-    const programStats = dbAll(
-      "SELECT program, COUNT(*) as count FROM students WHERE program IS NOT NULL GROUP BY program ORDER BY count DESC"
+    const brandStats = dbAll(
+      "SELECT brand, COUNT(*) as count FROM cars WHERE brand IS NOT NULL GROUP BY brand ORDER BY count DESC"
     );
 
-    const genderStats = dbAll(
-      "SELECT gender, COUNT(*) as count FROM students WHERE gender IS NOT NULL GROUP BY gender"
+    const fuelStats = dbAll(
+      "SELECT fuel_type, COUNT(*) as count FROM cars WHERE fuel_type IS NOT NULL GROUP BY fuel_type"
     );
 
-    const recentStudents = dbAll(
-      "SELECT * FROM students ORDER BY created_at DESC LIMIT 5"
+    const recentCars = dbAll(
+      "SELECT * FROM cars ORDER BY created_at DESC LIMIT 5"
     );
 
     return NextResponse.json({
-      totalStudents: totalStudents?.count || 0,
-      activeStudents: activeStudents?.count || 0,
-      inactiveStudents: inactiveStudents?.count || 0,
-      graduatedStudents: graduatedStudents?.count || 0,
-      programStats,
-      genderStats,
-      recentStudents,
+      totalCars: totalCars?.count || 0,
+      disponibleCars: disponibleCars?.count || 0,
+      venduCars: venduCars?.count || 0,
+      maintenanceCars: maintenanceCars?.count || 0,
+      reserveCars: reserveCars?.count || 0,
+      brandStats,
+      fuelStats,
+      recentCars,
     });
   } catch (error) {
     console.error("Error fetching stats:", error);
